@@ -249,7 +249,3 @@ Cell pemenang ditandai dengan warna hijau dan status menampilkan poin yang didap
 
 ---
 
-## Identitas
-- **Nama**: [Nama Kamu]
-- **NRP**: [NRP Kamu]
-- **Kelas**: Pemrograman Berorientasi Objek - B
