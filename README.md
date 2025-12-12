@@ -52,7 +52,7 @@ Untuk project kali ini diperlukan 12 class, yang dibagi menjadi beberapa kategor
 ---
 
 ### a. TicTacToe Class (Main)
-Kode lengkap dapat diakses [di sini](src/TicTacToe.java)
+Kode lengkap dapat diakses [di sini](src/)
 
 #### Penjelasan TicTacToe
 Class `TicTacToe` berfungsi sebagai **entry point** dari program.
