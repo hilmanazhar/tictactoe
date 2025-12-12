@@ -1,4 +1,4 @@
-# Tugas Akhir Semester - Pemrograman Berorientasi Objek B
+# Final Project - Pemrograman Berorientasi Objek B
 
 ## Deskripsi
 
