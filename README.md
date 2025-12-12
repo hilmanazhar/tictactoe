@@ -1,5 +1,14 @@
 # Final Project - Pemrograman Berorientasi Objek B
 
+> Anggota kelompok
+
+| Name | NRP | 
+| ---- | --- |
+| Aminudin Wijaya  | 5025241242 |
+| M. Hilman Azhar  | 5025241264 |
+| A. Wildan Kevin Assyauqi  | 5025241265 |
+
+
 ## Deskripsi
 
 Assalamualaikum Warahmatullahi Wabarakatuh,
