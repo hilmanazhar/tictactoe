@@ -1,51 +1,148 @@
-# Laporan Proyek: Tic Tac Toe - Paper & Pencil Edition
+# Tugas Akhir Semester - Pemrograman Berorientasi Objek B
+
+## Deskripsi
+
+Assalamualaikum Warahmatullahi Wabarakatuh,
+
+Pada Tugas Akhir Semester dalam kelas Pemrograman Berorientasi Objek kelas B.
+Saya ditugaskan untuk membuat sebuah game menggunakan bahasa `Java` dengan menerapkan konsep OOP.
+
+Game yang saya buat adalah **Tic Tac Toe - Paper & Pencil Edition** dengan tampilan minimalis seperti coretan pensil di buku tulis.
+
+Aplikasi ini merupakan program **berbasis GUI (Graphical User Interface)** menggunakan **Java Swing** dengan konsep **Object-Oriented Programming (OOP)**.
+Game ini memiliki dua mode permainan: Classic (3x3) dan Upnormal (5x5/7x7 dengan power-ups).
 
 ---
 
-## 1. Judul
+## Preview dan Penjelasan
 
-**Tic Tac Toe - Paper & Pencil Edition**
+### Penjelasan Singkat
 
-Game Tic Tac Toe dengan tampilan minimalis seperti coretan di buku tulis, dilengkapi dengan dua mode permainan: Classic dan Upnormal.
+Untuk project kali ini diperlukan 12 class, yang dibagi menjadi beberapa kategori:
 
----
+**Class Utama:**
+- [`TicTacToe`](src/TicTacToe.java) - Entry point program
+- [`GameFrame`](src/GameFrame.java) - Window utama
+- [`MenuPanel`](src/MenuPanel.java) - Panel menu
+- [`GamePanel`](src/GamePanel.java) - Panel permainan
 
-## 2. Deskripsi
+**Class Player:**
+- [`Player`](src/Player.java) - Abstract class untuk pemain
+- [`HumanPlayer`](src/HumanPlayer.java) - Pemain manusia
+- [`AIPlayer`](src/AIPlayer.java) - Pemain komputer dengan AI
 
-### Gambaran Umum
-Aplikasi ini adalah permainan Tic Tac Toe yang dikembangkan menggunakan Java Swing dengan tema visual "Paper & Pencil" - tampilan minimalis yang menyerupai coretan pensil di buku tulis.
+**Class Game Logic:**
+- [`GameBoard`](src/GameBoard.java) - Papan permainan
 
-### Fitur Utama
-
-| Fitur | Deskripsi |
-|-------|-----------|
-| **Mode Classic** | Permainan standar 3x3 tanpa power-ups |
-| **Mode Upnormal** | Permainan 5x5 atau 7x7 dengan power-ups |
-| **vs Computer** | Bermain melawan AI dengan 3 tingkat kesulitan |
-| **2 Players** | Bermain berdua secara bergantian |
-| **Power-Ups** | Bomb, Shield, Swap (hanya mode Upnormal) |
-
-### Power-Ups (Mode Upnormal)
-
-| Power-Up | Fungsi |
-|----------|--------|
-| **Bomb** | Membersihkan area 3x3 dari semua simbol |
-| **Shield** | Melindungi cell milik sendiri dari Swap |
-| **Swap** | Mengubah simbol lawan menjadi milik sendiri |
-
-### Tingkat Kesulitan AI
-
-| Level | Algoritma |
-|-------|-----------|
-| Easy | Random move |
-| Medium | 50% Minimax, 50% random |
-| Hard | Minimax dengan Alpha-Beta Pruning |
+**Class Power-Up:**
+- [`PowerUp`](src/PowerUp.java) - Interface power-up
+- [`BombPowerUp`](src/BombPowerUp.java) - Power-up Bomb
+- [`ShieldPowerUp`](src/ShieldPowerUp.java) - Power-up Shield
+- [`SwapPowerUp`](src/SwapPowerUp.java) - Power-up Swap
 
 ---
 
-## 3. Rancangan Kelas
+### a. TicTacToe Class (Main)
+Kode lengkap dapat diakses [di sini](src/TicTacToe.java)
 
-### Class Diagram
+#### Penjelasan TicTacToe
+Class `TicTacToe` berfungsi sebagai **entry point** dari program.
+Di dalamnya cuma ada satu baris kode untuk membuat objek `GameFrame` yang akan menampilkan window game.
+
+---
+
+### b. GameFrame Class
+Kode lengkap dapat diakses [di sini](src/GameFrame.java)
+
+#### Penjelasan GameFrame
+Class `GameFrame` berfungsi sebagai **window utama** aplikasi.
+Class ini mengatur tampilan dan navigasi antar panel (menu dan game).
+
+Fitur-fitur penting:
+- **Menyimpan pengaturan game** seperti ukuran grid, mode AI, dan tingkat kesulitan.
+- **Mengatur tema warna** Paper & Pencil (cream, biru pensil, merah pensil).
+- **Mengatur font** handwritten style menggunakan Segoe Print.
+- **Inner class NeonButton** untuk tombol dengan efek hover.
+- **Inner class GradientPanel** untuk panel dengan background seperti kertas buku tulis.
+
+---
+
+### c. Player Class (Abstract)
+Kode lengkap dapat diakses [di sini](src/Player.java)
+
+#### Penjelasan Player
+Class `Player` adalah **abstract class** yang menjadi template untuk semua jenis pemain.
+
+Atribut:
+- `name` → nama pemain
+- `symbol` → simbol pemain (X atau O)
+- `score` → skor pemain
+- `streak` → berapa kali menang berturut-turut
+- `powerUps` → daftar power-up yang dimiliki
+
+Method penting:
+- `hasPowerUp()` → cek apakah punya power-up tertentu
+- `usePowerUp()` → gunakan power-up
+- `resetPowerUps()` → reset power-up ke kondisi awal
+- `makeMove()` → method abstract yang harus diimplementasi subclass
+
+---
+
+### d. AIPlayer Class
+Kode lengkap dapat diakses [di sini](src/AIPlayer.java)
+
+#### Penjelasan AIPlayer
+Class `AIPlayer` adalah subclass dari `Player` yang mengimplementasi **AI untuk bermain melawan komputer**.
+
+Tingkat kesulitan:
+- **Easy** → gerakan random
+- **Medium** → 50% Minimax, 50% random
+- **Hard** → Minimax dengan Alpha-Beta Pruning (optimal)
+
+Method `minimax()` adalah algoritma yang membuat AI bisa memprediksi langkah terbaik dengan mempertimbangkan semua kemungkinan langkah ke depan.
+
+---
+
+### e. GameBoard Class
+Kode lengkap dapat diakses [di sini](src/GameBoard.java)
+
+#### Penjelasan GameBoard
+Class `GameBoard` berfungsi untuk **menyimpan dan mengelola papan permainan**.
+
+Atribut:
+- `board` → array 2D untuk menyimpan simbol
+- `size` → ukuran grid (3, 5, atau 7)
+- `shielded` → array 2D untuk menandai cell yang di-shield
+- `winCondition` → jumlah simbol berurutan untuk menang
+
+Method penting:
+- `setCell()` → menempatkan simbol di cell
+- `checkWinner()` → mengecek apakah ada pemenang
+- `getWinningCells()` → mendapatkan posisi cell pemenang
+- `copy()` → membuat salinan board (untuk AI Minimax)
+
+---
+
+### f. PowerUp Interface
+Kode lengkap dapat diakses [di sini](src/PowerUp.java)
+
+#### Penjelasan PowerUp
+`PowerUp` adalah **interface** yang mendefinisikan kontrak untuk semua power-up.
+
+Method yang harus diimplementasi:
+- `getName()` → nama power-up
+- `getDescription()` → deskripsi power-up
+- `canUse()` → cek apakah bisa digunakan
+- `use()` → gunakan power-up
+
+Implementasi:
+- **BombPowerUp** → membersihkan area 3x3
+- **ShieldPowerUp** → melindungi cell dari Swap
+- **SwapPowerUp** → mengubah simbol lawan jadi milik kita
+
+---
+
+## Class Diagram
 
 ```mermaid
 classDiagram
@@ -54,101 +151,33 @@ classDiagram
         #String name
         #char symbol
         #int score
-        #int streak
-        #List~PowerUp~ powerUps
-        +getName() String
-        +getSymbol() char
-        +getScore() int
-        +addScore(int points)
-        +hasPowerUp(Class type) boolean
-        +usePowerUp(Class type) PowerUp
-        +resetPowerUps()
-        +makeMove(GameBoard board)* int[]
+        +makeMove()* int[]
     }
     
     class HumanPlayer {
-        +makeMove(GameBoard board) int[]
+        +makeMove() int[]
     }
     
     class AIPlayer {
         -Difficulty difficulty
-        -Random random
-        -char opponentSymbol
-        +makeMove(GameBoard board) int[]
-        -makeEasyMove(GameBoard board) int[]
-        -makeMediumMove(GameBoard board) int[]
-        -makeHardMove(GameBoard board) int[]
+        +makeMove() int[]
         -minimax() int
     }
     
     class GameBoard {
         -char[][] board
         -int size
-        -boolean[][] shielded
-        -int winCondition
-        +getCell(int row, int col) char
-        +setCell(int row, int col, char symbol)
-        +isShielded(int row, int col) boolean
         +checkWinner() char
-        +getWinningCells() int[][]
-        +isFull() boolean
-        +copy() GameBoard
     }
     
     class PowerUp {
         <<interface>>
-        +getName() String
-        +getDescription() String
-        +canUse(GameBoard, int, int) boolean
-        +use(GameBoard, int, int, char, char)
+        +use()
     }
     
-    class BombPowerUp {
-        +use() : clears 3x3 area
-    }
-    
-    class ShieldPowerUp {
-        +use() : protects cell
-    }
-    
-    class SwapPowerUp {
-        +use() : converts enemy cell
-    }
-    
-    class GameFrame {
-        -CardLayout cardLayout
-        -MenuPanel menuPanel
-        -GamePanel gamePanel
-        -int gridSize
-        -boolean vsAI
-        -boolean classicMode
-        +showMenu()
-        +startGame()
-    }
-    
-    class MenuPanel {
-        -GameFrame frame
-        -JComboBox gridSizeCombo
-        -JToggleButton classicBtn
-        -JToggleButton upnormalBtn
-    }
-    
-    class GamePanel {
-        -GameFrame frame
-        -GameBoard board
-        -Player player1
-        -Player player2
-        -Player currentPlayer
-        -boolean classicMode
-        +initGame()
-        -handleCellClick()
-        -makeMove()
-        -switchPlayer()
-    }
-    
-    class TicTacToe {
-        +main(String[] args)$
-    }
+    class BombPowerUp
+    class ShieldPowerUp
+    class SwapPowerUp
     
     Player <|-- HumanPlayer
     Player <|-- AIPlayer
@@ -156,83 +185,55 @@ classDiagram
     PowerUp <|.. ShieldPowerUp
     PowerUp <|.. SwapPowerUp
     Player "1" o-- "*" PowerUp
-    GamePanel --> GameBoard
-    GamePanel --> Player
-    GameFrame --> MenuPanel
-    GameFrame --> GamePanel
-    TicTacToe --> GameFrame
 ```
 
-### Penjelasan Relasi Kelas
+---
 
-| Relasi | Deskripsi |
-|--------|-----------|
-| `Player` → `HumanPlayer`, `AIPlayer` | Inheritance - Player adalah abstract class |
-| `PowerUp` → `BombPowerUp`, `ShieldPowerUp`, `SwapPowerUp` | Implementation - PowerUp adalah interface |
-| `Player` ◇ `PowerUp` | Aggregation - Player memiliki list PowerUp |
-| `GamePanel` → `GameBoard`, `Player` | Association - GamePanel menggunakan kedua class |
-| `GameFrame` → `MenuPanel`, `GamePanel` | Composition - GameFrame memiliki kedua panel |
+## Fitur Utama
+
+| Fitur | Penjelasan |
+|-------|------------|
+| **Classic Mode** | Permainan standar 3x3 tanpa power-ups |
+| **Upnormal Mode** | Permainan 5x5 atau 7x7 dengan power-ups |
+| **vs Computer** | Bermain melawan AI dengan 3 tingkat kesulitan |
+| **2 Players** | Bermain berdua secara bergantian |
+| **Power-Ups** | Bomb, Shield, Swap (khusus Upnormal) |
 
 ---
 
-## 4. Gambar Aplikasi dan Penjelasan
+## Cara Menjalankan Program
 
-### 4.1 Menu Utama (Classic Mode)
-
-![Menu Utama](menu_classic.png)
-
-**Penjelasan:**
-- **Game Type**: Pilihan antara Classic (3x3) dan Upnormal (5x5/7x7)
-- **Player Mode**: vs Computer atau 2 Players
-- **AI Difficulty**: Easy, Medium, atau Hard
-- Tampilan menggunakan tema paper & pencil dengan warna cream
-
----
-
-### 4.2 Menu Utama (Upnormal Mode)
-
-![Menu Upnormal](menu_upnormal.png)
-
-**Penjelasan:**
-- Muncul pilihan **Grid Size** (5x5 atau 7x7)
-- Muncul informasi **Power-Ups** yang tersedia
-- Power-ups: Bomb, Shield, Swap
+1. Buka terminal/command prompt
+2. Masuk ke folder `src`
+3. Compile semua file Java:
+   ```
+   javac -encoding UTF-8 *.java
+   ```
+4. Jalankan program:
+   ```
+   java TicTacToe
+   ```
+5. Game akan muncul dan siap dimainkan!
 
 ---
 
-### 4.3 Permainan Classic Mode
+## Preview
 
-![Game Classic](game_classic.png)
+### a. Menu Utama (Classic Mode)
+Tampilan menu dengan pilihan Game Type, Player Mode, dan AI Difficulty.
+Di Classic Mode, pilihan Grid Size tidak muncul karena selalu 3x3.
 
-**Penjelasan:**
-- Grid 3x3 standar
-- X = warna biru pensil
-- O = warna merah pensil
-- Tidak ada power-ups
-- Panel kiri/kanan menampilkan score pemain
+### b. Menu Utama (Upnormal Mode)
+Ketika memilih Upnormal, muncul pilihan Grid Size (5x5 atau 7x7) dan informasi Power-Ups yang tersedia.
 
----
+### c. Tampilan Permainan
+- X berwarna biru pensil
+- O berwarna merah pensil
+- Panel kiri/kanan menampilkan score dan streak pemain
+- Di mode Upnormal, ada tombol power-up di bawah
 
-### 4.4 Permainan Upnormal Mode
-
-![Game Upnormal](game_upnormal.png)
-
-**Penjelasan:**
-- Grid 5x5 atau 7x7
-- Terdapat tombol power-up di bagian bawah
-- Player dapat menggunakan Bomb, Shield, atau Swap
-- Sel yang di-shield ditandai dengan warna biru muda
-
----
-
-### 4.5 Tampilan Kemenangan
-
-![Win Screen](game_win.png)
-
-**Penjelasan:**
-- Sel pemenang ditandai dengan warna hijau
-- Status menampilkan pemenang dan poin yang didapat
-- Streak bonus ditambahkan jika menang berturut-turut
+### d. Tampilan Kemenangan
+Cell pemenang ditandai dengan warna hijau dan status menampilkan poin yang didapat.
 
 ---
 
@@ -242,10 +243,13 @@ classDiagram
 |-----------|------------|
 | Java SE | Bahasa pemrograman utama |
 | Java Swing | Framework GUI |
-| AWT Graphics2D | Custom rendering untuk tema |
+| Graphics2D | Custom rendering untuk tema |
 | Minimax Algorithm | AI untuk mode Hard |
-| Alpha-Beta Pruning | Optimasi algoritma Minimax |
+| Alpha-Beta Pruning | Optimasi algoritma AI |
 
 ---
 
-*Laporan ini dibuat untuk mata kuliah PBO B*
+## Identitas
+- **Nama**: [Nama Kamu]
+- **NRP**: [NRP Kamu]
+- **Kelas**: Pemrograman Berorientasi Objek - B
