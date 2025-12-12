@@ -144,6 +144,7 @@ Implementasi:
 
 ## Class Diagram
 
+
 ```mermaid
 classDiagram
     class Player {
@@ -151,33 +152,101 @@ classDiagram
         #String name
         #char symbol
         #int score
-        +makeMove()* int[]
+        #int streak
+        #List~PowerUp~ powerUps
+        +getName() String
+        +getSymbol() char
+        +getScore() int
+        +addScore(int points)
+        +hasPowerUp(Class type) boolean
+        +usePowerUp(Class type) PowerUp
+        +resetPowerUps()
+        +makeMove(GameBoard board)* int[]
     }
     
     class HumanPlayer {
-        +makeMove() int[]
+        +makeMove(GameBoard board) int[]
     }
     
     class AIPlayer {
         -Difficulty difficulty
-        +makeMove() int[]
+        -Random random
+        -char opponentSymbol
+        +makeMove(GameBoard board) int[]
+        -makeEasyMove(GameBoard board) int[]
+        -makeMediumMove(GameBoard board) int[]
+        -makeHardMove(GameBoard board) int[]
         -minimax() int
     }
     
     class GameBoard {
         -char[][] board
         -int size
+        -boolean[][] shielded
+        -int winCondition
+        +getCell(int row, int col) char
+        +setCell(int row, int col, char symbol)
+        +isShielded(int row, int col) boolean
         +checkWinner() char
+        +getWinningCells() int[][]
+        +isFull() boolean
+        +copy() GameBoard
     }
     
     class PowerUp {
         <<interface>>
-        +use()
+        +getName() String
+        +getDescription() String
+        +canUse(GameBoard, int, int) boolean
+        +use(GameBoard, int, int, char, char)
     }
     
-    class BombPowerUp
-    class ShieldPowerUp
-    class SwapPowerUp
+    class BombPowerUp {
+        +use() : clears 3x3 area
+    }
+    
+    class ShieldPowerUp {
+        +use() : protects cell
+    }
+    
+    class SwapPowerUp {
+        +use() : converts enemy cell
+    }
+    
+    class GameFrame {
+        -CardLayout cardLayout
+        -MenuPanel menuPanel
+        -GamePanel gamePanel
+        -int gridSize
+        -boolean vsAI
+        -boolean classicMode
+        +showMenu()
+        +startGame()
+    }
+    
+    class MenuPanel {
+        -GameFrame frame
+        -JComboBox gridSizeCombo
+        -JToggleButton classicBtn
+        -JToggleButton upnormalBtn
+    }
+    
+    class GamePanel {
+        -GameFrame frame
+        -GameBoard board
+        -Player player1
+        -Player player2
+        -Player currentPlayer
+        -boolean classicMode
+        +initGame()
+        -handleCellClick()
+        -makeMove()
+        -switchPlayer()
+    }
+    
+    class TicTacToe {
+        +main(String[] args)$
+    }
     
     Player <|-- HumanPlayer
     Player <|-- AIPlayer
@@ -185,7 +254,13 @@ classDiagram
     PowerUp <|.. ShieldPowerUp
     PowerUp <|.. SwapPowerUp
     Player "1" o-- "*" PowerUp
+    GamePanel --> GameBoard
+    GamePanel --> Player
+    GameFrame --> MenuPanel
+    GameFrame --> GamePanel
+    TicTacToe --> GameFrame
 ```
+
 
 ---
 
